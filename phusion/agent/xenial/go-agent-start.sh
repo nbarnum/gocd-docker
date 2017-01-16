@@ -16,7 +16,8 @@ chown go /var/lib/go-agent/config
 
 AGENT_KEY="${AGENT_KEY:-123456789abcdef}"
 echo "agent.auto.register.key=$AGENT_KEY" >/var/lib/go-agent/config/autoregister.properties
-if [ -n "$AGENT_RESOURCES" ]; then echo "agent.auto.register.resources=$AGENT_RESOURCES" >>/var/lib/go-agent/config/autoregister.properties; fi
+# if [ -n "$AGENT_RESOURCES" ]; then echo "agent.auto.register.resources=$AGENT_RESOURCES" >>/var/lib/go-agent/config/autoregister.properties; fi
+echo "agent.auto.register.resources=linux,ubuntu,xenial,golang1.7" >>/var/lib/go-agent/config/autoregister.properties
 if [ -n "$AGENT_ENVIRONMENTS" ]; then echo "agent.auto.register.environments=$AGENT_ENVIRONMENTS" >>/var/lib/go-agent/config/autoregister.properties; fi
 if [ -n "$AGENT_HOSTNAME" ]; then echo "agent.auto.register.hostname=$AGENT_HOSTNAME" >>/var/lib/go-agent/config/autoregister.properties; fi
 
