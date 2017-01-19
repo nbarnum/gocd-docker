@@ -21,9 +21,6 @@ WORKDIR /tmp
 RUN dpkg -i /tmp/go-agent.deb
 RUN sed -i -e 's/DAEMON=Y/DAEMON=N/' /etc/default/go-agent
 
-RUN apt-get clean
-RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
 # Install Golang
 ADD https://storage.googleapis.com/golang/go$GOLANG_VERSION.linux-amd64.tar.gz /tmp/golang.tar.gz
 RUN tar -C /usr/local -xzf /tmp/golang.tar.gz; \
@@ -32,5 +29,11 @@ RUN tar -C /usr/local -xzf /tmp/golang.tar.gz; \
     echo "export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/go/bin:/var/go/golang/bin" >> /etc/default/go-agent; \
     su - go -c "GOPATH=/var/go/golang /usr/local/go/bin/go get -u github.com/golang/lint/golint"; \
     su - go -c "GOPATH=/var/go/golang /usr/local/go/bin/go get -u github.com/jstemmer/go-junit-report";
+
+# Install debian packaging tools
+RUN apt-get install -y -q build-essential cdbs debhelper
+
+RUN apt-get clean
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 CMD ["/sbin/my_init"]
