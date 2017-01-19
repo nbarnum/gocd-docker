@@ -3,13 +3,13 @@
 FROM phusion/baseimage:0.9.18
 MAINTAINER GoCD <go-cd-dev@googlegroups.com>
 
-ARG GO_VERSION="16.8.0-3929"
+ARG GO_VERSION="16.12.0-4352"
 ARG DOWNLOAD_URL="https://download.gocd.io/binaries"
-ARG GOLANG_VERSION="1.7.4"
+ARG GOLANG_VERSION="1.6.4"
 
 RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
 RUN apt-get update
-RUN apt-get upgrade -y
+# RUN apt-get upgrade -y
 RUN apt-get install -y -q unzip openjdk-7-jre-headless git mercurial subversion
 
 RUN mkdir /etc/service/go-agent
